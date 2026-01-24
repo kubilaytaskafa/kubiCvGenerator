@@ -1,78 +1,106 @@
-📄 kubiCvGenerator
 
-kubiCvGenerator, modern iş dünyasının standartlarına uygun, ATS (Applicant Tracking System) uyumlu özgeçmişler oluşturmanıza olanak tanıyan web tabanlı bir uygulamadır. Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, profesyonel çıktılar alabilirsiniz.
+# 📄 kubiCvGenerator
 
-✨ Özellikler
+**kubiCvGenerator**, modern iş dünyasının standartlarına uygun, **ATS (Applicant Tracking System)** uyumlu özgeçmişler oluşturmanıza olanak tanıyan web tabanlı bir uygulamadır.
 
-ATS Uyumlu Tasarım: İşe alım sistemleri tarafından kolayca taranabilir formatta CV'ler.
+Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, anlık önizleme ile takip edebilir ve profesyonel çıktılar alabilirsiniz.
 
-Çoklu Format Desteği: Özgeçmişinizi hem PDF hem de DOCX formatında indirebilirsiniz.
+---
 
-Canlı Önizleme: Verilerinizi doldururken CV'nizin nasıl göründüğünü anlık olarak takip edin.
+## ✨ Özellikler
 
-Modern Arayüz: Bootstrap ve React-Icons ile güçlendirilmiş, temiz ve şık bir kullanıcı deneyimi.
+- **🎯 ATS Uyumlu Tasarım:** İşe alım sistemleri (robotlar) tarafından kolayca taranabilir ve okunabilir formatta CV'ler oluşturur.
+- **📥 Çoklu Format Desteği:** Özgeçmişinizi hem **PDF** hem de **DOCX (Word)** formatında indirebilirsiniz.
+- **👀 Canlı Önizleme:** Verilerinizi formu doldururken CV'nizin son halini sağ panelde anlık olarak görüntüleyin.
+- **🎨 Modern Arayüz:** Bootstrap 5 ve React-Icons ile güçlendirilmiş, temiz, şık ve responsive (duyarlı) bir kullanıcı deneyimi.
+- **💾 Veri Saklama:** Tarayıcıyı kapatsanız bile verileriniz kaybolmaz (Local Storage entegrasyonu).
 
-Veri Saklama: Form verileri, sayfa yenilense bile kaybolmaması için lokal olarak yönetilir.
+---
 
-📸 Ekran Görüntüleri
+## 📸 Ekran Görüntüleri
 
-Buraya projenin çalışan halinden bir görsel ekleyebilirsin:
+<img width="1897" height="870" alt="image" src="https://github.com/user-attachments/assets/d2456c45-17a3-4961-8c8b-c9eeb1865aaf" />
 
-🛠️ Kullanılan Teknolojiler
+****
 
-Proje, güncel web teknolojileri ve kütüphaneleri kullanılarak React + Vite altyapısı ile geliştirilmiştir.
+<img width="1897" height="865" alt="image" src="https://github.com/user-attachments/assets/bec78e64-190e-4d9c-b1f9-1fbd4e29f1d0" />
 
-Core
-React 19: Kullanıcı arayüzü bileşenleri için.
+****
+<img width="1900" height="861" alt="image" src="https://github.com/user-attachments/assets/8af080d4-7735-4323-beea-09671525e402" />
 
-Vite: Hızlı geliştirme ortamı ve build süreci.
+****
+<img width="1898" height="862" alt="image" src="https://github.com/user-attachments/assets/b790af9c-3447-4066-8e0d-4b4115e5c8c5" />
 
-Redux Toolkit: Global state yönetimi (CV verileri için).
-
-UI & Stil
-
-Bootstrap 5: Duyarlı (responsive) tasarım ve hazır bileşenler.
-
-React Icons & Bootstrap Icons: Modern ve açıklayıcı simgeler.
-
-Dosya İşlemleri
-html2pdf.js: HTML içeriğini yüksek kaliteli PDF'e dönüştürmek için.
-
-html-docx-js-typescript: Word (DOCX) çıktısı almak için.
-
-react-to-print: Tarayıcı üzerinden yazdırma ve PDF kaydetme desteği.
+****
+<img width="1917" height="882" alt="image" src="https://github.com/user-attachments/assets/a5b70cf1-034d-4d8a-b536-9ef6c294daf0" />
 
 
-🚀 Kurulum ve Çalıştırma
+****
+<img width="1919" height="872" alt="image" src="https://github.com/user-attachments/assets/9e222e64-0d0e-4439-8806-9e93b7af63bb" />
 
-Projeyi yerel bilgisayarınızda çalıştırmak için şu adımları izleyin:
 
-Depoyu klonlayın:
+---
 
-Bash
+## 🛠️ Kullanılan Teknolojiler
+
+Proje, performans ve geliştirici deneyimi için **React + Vite** altyapısı üzerine inşa edilmiştir.
+
+### ⚙️ Core (Çekirdek)
+- **[React 19](https://react.dev/):** Kullanıcı arayüzü kütüphanesi.
+- **[Vite](https://vitejs.dev/):** Ultra hızlı geliştirme sunucusu ve build aracı.
+- **[Redux Toolkit](https://redux-toolkit.js.org/):** Global state ve veri akışı yönetimi.
+
+### 🎨 UI & Stil
+- **[Bootstrap 5](https://getbootstrap.com/):** Grid sistemi ve hazır responsive bileşenler.
+- **React Icons & Bootstrap Icons:** Modern simge setleri.
+
+### 🖨️ Dosya & Çıktı İşlemleri
+- **html2pdf.js:** HTML DOM yapısını PDF formatına çevirmek için.
+- **html-docx-js-typescript:** HTML içeriğinden Word dökümanı oluşturmak için.
+- **react-to-print:** Tarayıcı tabanlı yazdırma ve PDF kaydetme işlemleri için.
+
+---
+
+## 🚀 Kurulum ve Çalıştırma
+
+Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyebilirsiniz.
+
+**Ön Hazırlık:** Bilgisayarınızda [Node.js](https://nodejs.org/) yüklü olmalıdır.
+
+1. **Depoyu Klonlayın:**
+
 ```bash
-git clone https://github.com/kubilaytaskafa/kubiCvGenerator.git
+   git clone [https://github.com/kubilaytaskafa/kubiCvGenerator.git](https://github.com/kubilaytaskafa/kubiCvGenerator.git)
 ```
-Proje dizinine gidin:
+   
+
+   2. **Proje Dizinine Gidin:**
 
 ```bash
-cd kubiCvGenerator
+   cd kubiCvGenerator
 ```
 
-Bağımlılıkları yükleyin:
+3. Bağımlılıkları Yükleyin
 
 ```bash
 npm install
 ```
 
-Uygulamayı başlatın:
+4. Uygulamayı Başlatın
 
 ```bash
 npm run dev
 ```
 
 
-📝 Lisans
-Bu proje MIT lisansı altında lisanslanmıştır.
+## 📝 Lisans
 
-Geliştiren: Kubilay - NEÜ YBS Öğrencisi & Full-Stack Developer Adayı
+Bu proje **MIT** lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakabilirsiniz.
+
+
+****
+## Geliştiren
+
+- Kubilay Taşkafa
+- info.kubilay0@gmail.com
+- https://linkedin.com/in/kubilaytaskafa
