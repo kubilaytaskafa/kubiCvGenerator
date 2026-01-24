@@ -17,7 +17,7 @@ const Home = () => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
-              <h1 className="display-4 fw-bold mb-3">cvGeneratorExpert</h1>
+              <h1 className="display-4 fw-bold mb-3">kubiCvGenerator</h1>
               <p className="lead text-muted mb-4">
                 Dakikalar içinde profesyonel ve ATS uyumlu CV'nizi oluşturun.
                 Ücretsiz ve üyelik gerektirmez.
@@ -203,7 +203,7 @@ const Home = () => {
       <section className="py-5 text-center container">
         <h3 className="fw-bold mb-3">Kariyerine Bugün Yön Ver</h3>
         <p className="text-muted mb-4">
-          cvGeneratorExpert, CV’nizi hem ATS için optimize edilmiş DOCX hem de
+          kubiCvGenerator, CV’nizi hem ATS için optimize edilmiş DOCX hem de
           insan okuyucu için profesyonel PDF olarak üretir. .ATS uyumlu ve
           profesyonel CV'nizi hazırlamak sadece birkaç dakikanızı alacak.
         </p>

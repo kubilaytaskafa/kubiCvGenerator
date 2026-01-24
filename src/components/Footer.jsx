@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container">
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2 text-center">
           <p className="mb-0">
-            &copy; {new Date().getFullYear()} cvGeneratorExpert. Tüm hakları
+            &copy; {new Date().getFullYear()} kubiCvGenerator. Tüm hakları
             saklıdır.
           </p>
 

@@ -1,16 +1,78 @@
-# React + Vite
+📄 kubiCvGenerator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+kubiCvGenerator, modern iş dünyasının standartlarına uygun, ATS (Applicant Tracking System) uyumlu özgeçmişler oluşturmanıza olanak tanıyan web tabanlı bir uygulamadır. Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, profesyonel çıktılar alabilirsiniz.
 
-Currently, two official plugins are available:
+✨ Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ATS Uyumlu Tasarım: İşe alım sistemleri tarafından kolayca taranabilir formatta CV'ler.
 
-## React Compiler
+Çoklu Format Desteği: Özgeçmişinizi hem PDF hem de DOCX formatında indirebilirsiniz.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Canlı Önizleme: Verilerinizi doldururken CV'nizin nasıl göründüğünü anlık olarak takip edin.
 
-## Expanding the ESLint configuration
+Modern Arayüz: Bootstrap ve React-Icons ile güçlendirilmiş, temiz ve şık bir kullanıcı deneyimi.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Veri Saklama: Form verileri, sayfa yenilense bile kaybolmaması için lokal olarak yönetilir.
+
+📸 Ekran Görüntüleri
+
+Buraya projenin çalışan halinden bir görsel ekleyebilirsin:
+
+🛠️ Kullanılan Teknolojiler
+
+Proje, güncel web teknolojileri ve kütüphaneleri kullanılarak React + Vite altyapısı ile geliştirilmiştir.
+
+Core
+React 19: Kullanıcı arayüzü bileşenleri için.
+
+Vite: Hızlı geliştirme ortamı ve build süreci.
+
+Redux Toolkit: Global state yönetimi (CV verileri için).
+
+UI & Stil
+
+Bootstrap 5: Duyarlı (responsive) tasarım ve hazır bileşenler.
+
+React Icons & Bootstrap Icons: Modern ve açıklayıcı simgeler.
+
+Dosya İşlemleri
+html2pdf.js: HTML içeriğini yüksek kaliteli PDF'e dönüştürmek için.
+
+html-docx-js-typescript: Word (DOCX) çıktısı almak için.
+
+react-to-print: Tarayıcı üzerinden yazdırma ve PDF kaydetme desteği.
+
+
+🚀 Kurulum ve Çalıştırma
+
+Projeyi yerel bilgisayarınızda çalıştırmak için şu adımları izleyin:
+
+Depoyu klonlayın:
+
+Bash
+```bash
+git clone https://github.com/kubilaytaskafa/kubiCvGenerator.git
+```
+Proje dizinine gidin:
+
+```bash
+cd kubiCvGenerator
+```
+
+Bağımlılıkları yükleyin:
+
+```bash
+npm install
+```
+
+Uygulamayı başlatın:
+
+```bash
+npm run dev
+```
+
+
+📝 Lisans
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+Geliştiren: Kubilay - NEÜ YBS Öğrencisi & Full-Stack Developer Adayı

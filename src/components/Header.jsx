@@ -38,7 +38,7 @@ const Header = () => {
               to="/"
             >
               <FaFileAlt />
-              cvGeneratorExpert
+              kubiCvGenerator
             </Link>
 
             <button

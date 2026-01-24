@@ -1,14 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+// İkonların çalışması için bu satırı ekliyoruz:
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 import {
   addExperience,
   editExperience,
   deleteExperience,
-} from "../redux/slices/experiences"; // Slice dosya isminin doğruluğundan emin olun
+} from "../redux/slices/experiences";
 
 const ExperiencesPart = () => {
   const dispatch = useDispatch();
-  // Store'dan veriyi çekiyoruz
   const { experiences } = useSelector((state) => state.experiences);
 
   const formRef = useRef(null);
@@ -16,11 +18,11 @@ const ExperiencesPart = () => {
   // Form State
   const [formData, setFormData] = useState({
     id: "",
-    position: "", // CV'de olmazsa olmaz (Unvan)
-    company: "", // Firma Adı (İstendi)
-    startDate: "", // Başlangıç (İstendi)
-    endDate: "", // Bitiş (İstendi)
-    description: "", // Açıklama (İstendi)
+    position: "",
+    company: "",
+    startDate: "",
+    endDate: "",
+    description: "",
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -58,6 +60,7 @@ const ExperiencesPart = () => {
   const handleEditClick = (exp) => {
     setFormData(exp);
     setIsEditing(true);
+    // Form alanına yumuşak kaydırma yap
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   };
 
@@ -87,6 +90,7 @@ const ExperiencesPart = () => {
       {/* --- PANEL BAŞLIĞI --- */}
       <div className="border-bottom pb-2">
         <h5 className="fw-bold text-dark mb-1 d-flex align-items-center">
+          {/* İkon: Çanta */}
           <i className="bi bi-briefcase-fill text-success me-2"></i>
           İş Deneyimi
         </h5>
@@ -105,7 +109,6 @@ const ExperiencesPart = () => {
           experiences.map((exp) => (
             <div
               key={exp.id}
-              // Sol kenar yeşil (Success) şerit
               className="card shadow-sm border-0 border-start border-4 border-success bg-white"
               role="listitem"
             >
@@ -139,6 +142,7 @@ const ExperiencesPart = () => {
                     title="Düzenle"
                     style={{ width: "32px", height: "32px", padding: 0 }}
                   >
+                    {/* İkon: Kalem */}
                     <i
                       className="bi bi-pencil-fill"
                       style={{ fontSize: "0.8rem" }}
@@ -150,6 +154,7 @@ const ExperiencesPart = () => {
                     title="Sil"
                     style={{ width: "32px", height: "32px", padding: 0 }}
                   >
+                    {/* İkon: Çöp Kutusu */}
                     <i
                       className="bi bi-trash-fill"
                       style={{ fontSize: "0.8rem" }}
