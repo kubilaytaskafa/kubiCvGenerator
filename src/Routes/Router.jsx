@@ -3,6 +3,7 @@ import WebLayout from "../pages/WebLayout";
 import Home from "../pages/Home";
 import Cv from "../pages/Cv";
 import CvAts from "../pages/CvAts";
+import NotFoundPage from "../pages/NotFoundPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -21,5 +22,9 @@ export const router = createBrowserRouter([
         element: <CvAts />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);

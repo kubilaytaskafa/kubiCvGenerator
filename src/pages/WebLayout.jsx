@@ -18,7 +18,7 @@ const WebLayout = () => {
       {/* 2. flex-grow-1: Header ve Footer'dan arta kalan TÜM alanı main'e verir.
          Böylece içerik az olsa bile Footer en alta yapışır, Main genişler.
       */}
-      <main className="w-100 container p-5">
+      <main className="w-100 min-vh-100 container p-5">
         {/* İsteğe bağlı: İçeriği ortalamak ve kenar boşluğu vermek için Container */}
         <Outlet />
       </main>
