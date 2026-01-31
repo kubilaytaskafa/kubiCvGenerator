@@ -117,3 +117,18 @@ Bu proje **MIT** lisansı altında lisanslanmıştır. Detaylar için `LICENSE` 
 
 ### Güncelleme Görüntüleri
 
+<img width="701" height="795" alt="Ekran görüntüsü 2026-01-31 154039" src="https://github.com/user-attachments/assets/c6ab30e8-9bfb-4f82-a317-bd945a21b5ca" />
+
+****
+
+<img width="522" height="741" alt="Ekran görüntüsü 2026-01-31 154237" src="https://github.com/user-attachments/assets/d8e03d5d-a6c6-46a7-b93e-ced32ae254fe" />
+
+****
+
+<img width="475" height="717" alt="Ekran görüntüsü 2026-01-31 154402" src="https://github.com/user-attachments/assets/bb13e5bd-6535-45ab-962a-eafe4f531720" />
+
+****
+
+<img width="600" height="803" alt="Ekran görüntüsü 2026-01-31 154542" src="https://github.com/user-attachments/assets/a14e570c-c7c3-472d-8f91-8e539c6fa7e5" />
+
+
