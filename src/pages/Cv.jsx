@@ -10,11 +10,19 @@ import ProjectsPart from "../components/ProjectsPart";
 import CertificatePart from "../components/CertificatePart";
 import CvScreen from "./CvScreen";
 import DownloadButtons from "../components/DownloadButtons"; // İndirme butonlarını import ettik
+import CvModern from "../components/cvPages/CvModern";
+import { useSearchParams } from "react-router-dom";
+
+import CvElegant from "../components/cvPages/CvElegant";
+import CvNatural from "../components/cvPages/CvNatural";
+import CvProfessional from "../components/cvPages/CvProfessional";
+import ThemeSelector from "../components/ThemesSelector";
 
 const Cv = () => {
   // 1. Yazdırılacak alan referansı
   const cvRef = useRef();
-
+  const [searchParams] = useSearchParams();
+  const cvStyle = searchParams.get("style");
   // 2. Dosya adı için kullanıcı bilgilerini çek
   const userInfo = useSelector((state) => state.userInfo);
 
@@ -23,6 +31,20 @@ const Cv = () => {
     userInfo.name && userInfo.lastName
       ? `${userInfo.name}_${userInfo.lastName}_CV`.replace(/\s+/g, "_")
       : "Profesyonel_CV";
+
+  let content;
+
+  if (cvStyle === "modern") {
+    content = <CvModern />;
+  } else if (cvStyle === "elegant") {
+    content = <CvElegant />;
+  } else if (cvStyle === "natural") {
+    content = <CvNatural />;
+  } else if (cvStyle === "professional") {
+    content = <CvProfessional />;
+  } else {
+    content = <CvModern />;
+  }
 
   return (
     <div className="container-fluid bg-light min-vh-100 py-4">
@@ -78,7 +100,7 @@ const Cv = () => {
           <div className="sticky-lg-top" style={{ top: "20px", zIndex: 10 }}>
             {/* --- İNDİRME BUTONLARI (YENİ EKLENDİ) --- */}
             <DownloadButtons targetRef={cvRef} fileName={fileName} />
-
+            <ThemeSelector cvStyle={cvStyle} />
             {/* CV Kapsayıcısı (A4 Kağıt Efekti) */}
             <div className="shadow-lg rounded overflow-hidden border border-secondary border-opacity-10 bg-white">
               {/* Önizleme Başlık Çubuğu */}
@@ -95,9 +117,7 @@ const Cv = () => {
               >
                 <div className="p-1 p-md-3">
                   {/* --- YAZDIRILACAK ALAN BAŞLANGICI --- */}
-                  <div ref={cvRef}>
-                    <CvScreen />
-                  </div>
+                  <div ref={cvRef}>{content}</div>
                   {/* --- YAZDIRILACAK ALAN BİTİŞİ --- */}
                 </div>
               </div>
