@@ -104,3 +104,16 @@ Bu proje **MIT** lisansı altında lisanslanmıştır. Detaylar için `LICENSE` 
 - Kubilay Taşkafa
 - info.kubilay0@gmail.com
 - https://linkedin.com/in/kubilaytaskafa
+
+---
+# GÜNCELLEMELER
+
+## 1.1.0 Güncellemesi 
+
+### Güncellemeler
+- Favicon güncellemesi yapıldı
+- Modern , Elegant,Natural ve Professional Cv paletleri eklendi
+- Skills alanları için contants oluşturuldu , kullanıcıya bu alanlar için searchable component sunuldu
+
+### Güncelleme Görüntüleri
+
