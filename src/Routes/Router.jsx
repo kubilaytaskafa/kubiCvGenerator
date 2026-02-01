@@ -1,9 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import WebLayout from "../pages/WebLayout";
-import Home from "../pages/Home";
-import Cv from "../pages/Cv";
-import CvAts from "../pages/CvAts";
-import NotFoundPage from "../pages/NotFoundPage";
+import Loading from "../components/Loading";
+// Lazy loading components
+const Home = lazy(() => import("../pages/Home"));
+const Cv = lazy(() => import("../pages/Cv"));
+const CvAts = lazy(() => import("../pages/CvAts"));
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
+
+// Loading fallback
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -11,20 +17,36 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "cv",
-        element: <Cv />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Cv />
+          </Suspense>
+        ),
       },
       {
         path: "cv-ats",
-        element: <CvAts />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <CvAts />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "*",
-    element: <NotFoundPage />,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <NotFoundPage />
+      </Suspense>
+    ),
   },
 ]);

@@ -12,6 +12,7 @@ import CvScreen from "./CvScreen";
 import DownloadButtons from "../components/DownloadButtons"; // İndirme butonlarını import ettik
 import CvModern from "../components/cvPages/CvModern";
 import { useSearchParams } from "react-router-dom";
+import SEO from "../components/SEO";
 
 import CvElegant from "../components/cvPages/CvElegant";
 import CvNatural from "../components/cvPages/CvNatural";
@@ -48,6 +49,11 @@ const Cv = () => {
 
   return (
     <div className="container-fluid bg-light min-vh-100 py-4">
+      <SEO
+        title={`${userInfo.name ? userInfo.name + " " + userInfo.lastName : "Yeni CV"} - kubiCvGenerator`}
+        description="Profesyonel CV oluşturma ekranı."
+        canonical="https://kubicvgenerator.com/cv"
+      />
       <div className="row g-4 justify-content-center">
         {/* --- SOL PANEL: VERİ GİRİŞİ (INPUTS) --- */}
         <div className="col-12 col-lg-5 col-xl-4 order-1">

@@ -9,6 +9,7 @@ import ProjectsPart from "../components/ProjectsPart";
 import CertificatePart from "../components/CertificatePart";
 import CvAtsScreen from "./CvAtsScreen";
 import DownloadButtons from "../components/DownloadButtons";
+import SEO from "../components/SEO";
 
 const CvAts = () => {
   // 1. Yazdırılacak alan referansı
@@ -25,6 +26,11 @@ const CvAts = () => {
 
   return (
     <section className="container-fluid bg-light min-vh-100 py-4">
+      <SEO
+        title={`${userInfo.name ? userInfo.name + " " + userInfo.lastName : "Yeni ATS CV"} - kubiCvGenerator`}
+        description="ATS uyumlu CV oluşturma ekranı."
+        canonical="https://kubicvgenerator.com/cv-ats"
+      />
       <div className="row g-4 justify-content-center">
         {/* --- SOL PANEL: VERİ GİRİŞİ (INPUTS) --- */}
         <div className="col-12 col-lg-5 col-xl-4 order-1">

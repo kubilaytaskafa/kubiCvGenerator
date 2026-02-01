@@ -86,84 +86,95 @@ const ExperiencesPart = () => {
   };
 
   return (
-    <div className="d-flex flex-column gap-4 w-100">
+    <section
+      className="d-flex flex-column gap-4 w-100"
+      aria-labelledby="experiences-heading"
+    >
       {/* --- PANEL BAŞLIĞI --- */}
-      <div className="border-bottom pb-2">
-        <h5 className="fw-bold text-dark mb-1 d-flex align-items-center">
+      <header className="border-bottom pb-2">
+        <h2
+          id="experiences-heading"
+          className="h5 fw-bold text-dark mb-1 d-flex align-items-center"
+        >
           {/* İkon: Çanta */}
           <i className="bi bi-briefcase-fill text-success me-2"></i>
           İş Deneyimi
-        </h5>
+        </h2>
         <p className="text-muted small mb-0" style={{ fontSize: "0.85rem" }}>
           Kariyer geçmişini ve sorumluluklarını yönet.
         </p>
-      </div>
+      </header>
 
       {/* --- LİSTELEME ALANI --- */}
-      <div className="d-flex flex-column gap-2" role="list">
+      <div className="d-flex flex-column gap-2">
         {experiences.length === 0 ? (
-          <div className="alert alert-light border border-dashed text-center p-3 mb-0">
+          <div
+            className="alert alert-light border border-dashed text-center p-3 mb-0"
+            role="status"
+          >
             <small className="text-muted">Henüz deneyim eklenmedi.</small>
           </div>
         ) : (
-          experiences.map((exp) => (
-            <div
-              key={exp.id}
-              className="card shadow-sm border-0 border-start border-4 border-success bg-white"
-              role="listitem"
-            >
-              <div className="card-body p-2 d-flex justify-content-between align-items-center">
-                <div className="overflow-hidden me-2">
-                  <h6
-                    className="fw-bold text-dark mb-0 text-truncate"
-                    style={{ fontSize: "0.95rem" }}
-                  >
-                    {exp.position}
-                  </h6>
-                  <div
-                    className="text-muted small text-truncate"
-                    style={{ fontSize: "0.85rem" }}
-                  >
-                    {exp.company}
-                  </div>
-                  <div
-                    className="text-secondary small fst-italic"
-                    style={{ fontSize: "0.75rem" }}
-                  >
-                    {exp.startDate ? exp.startDate.slice(0, 4) : ""} -{" "}
-                    {exp.endDate ? exp.endDate.slice(0, 4) : "Devam"}
-                  </div>
-                </div>
+          <ul className="list-unstyled d-flex flex-column gap-2 m-0 p-0">
+            {experiences.map((exp) => (
+              <li key={exp.id}>
+                <article className="card shadow-sm border-0 border-start border-4 border-success bg-white">
+                  <div className="card-body p-2 d-flex justify-content-between align-items-center">
+                    <div className="overflow-hidden me-2">
+                      <h3
+                        className="fw-bold text-dark mb-0 text-truncate h6"
+                        style={{ fontSize: "0.95rem" }}
+                      >
+                        {exp.position}
+                      </h3>
+                      <div
+                        className="text-muted small text-truncate"
+                        style={{ fontSize: "0.85rem" }}
+                      >
+                        {exp.company}
+                      </div>
+                      <time
+                        className="text-secondary small fst-italic"
+                        style={{ fontSize: "0.75rem" }}
+                      >
+                        {exp.startDate ? exp.startDate.slice(0, 4) : ""} -{" "}
+                        {exp.endDate ? exp.endDate.slice(0, 4) : "Devam"}
+                      </time>
+                    </div>
 
-                <div className="d-flex gap-1 flex-shrink-0">
-                  <button
-                    onClick={() => handleEditClick(exp)}
-                    className="btn btn-sm btn-light text-primary border"
-                    title="Düzenle"
-                    style={{ width: "32px", height: "32px", padding: 0 }}
-                  >
-                    {/* İkon: Kalem */}
-                    <i
-                      className="bi bi-pencil-fill"
-                      style={{ fontSize: "0.8rem" }}
-                    ></i>
-                  </button>
-                  <button
-                    onClick={() => handleDeleteClick(exp.id)}
-                    className="btn btn-sm btn-light text-danger border"
-                    title="Sil"
-                    style={{ width: "32px", height: "32px", padding: 0 }}
-                  >
-                    {/* İkon: Çöp Kutusu */}
-                    <i
-                      className="bi bi-trash-fill"
-                      style={{ fontSize: "0.8rem" }}
-                    ></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
+                    <div className="d-flex gap-1 flex-shrink-0">
+                      <button
+                        onClick={() => handleEditClick(exp)}
+                        className="btn btn-sm btn-light text-primary border"
+                        title="Düzenle"
+                        aria-label={`${exp.position} pozisyonunu düzenle`}
+                        style={{ width: "32px", height: "32px", padding: 0 }}
+                      >
+                        {/* İkon: Kalem */}
+                        <i
+                          className="bi bi-pencil-fill"
+                          style={{ fontSize: "0.8rem" }}
+                        ></i>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(exp.id)}
+                        className="btn btn-sm btn-light text-danger border"
+                        title="Sil"
+                        aria-label={`${exp.position} pozisyonunu sil`}
+                        style={{ width: "32px", height: "32px", padding: 0 }}
+                      >
+                        {/* İkon: Çöp Kutusu */}
+                        <i
+                          className="bi bi-trash-fill"
+                          style={{ fontSize: "0.8rem" }}
+                        ></i>
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
 
@@ -276,7 +287,7 @@ const ExperiencesPart = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

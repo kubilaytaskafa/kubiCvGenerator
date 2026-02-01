@@ -54,17 +54,23 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="d-flex flex-column gap-4 w-100">
+    <section
+      className="d-flex flex-column gap-4 w-100"
+      aria-labelledby="user-info-heading"
+    >
       {/* --- PANEL BAŞLIĞI --- */}
-      <div className="border-bottom pb-2">
-        <h5 className="fw-bold text-dark mb-1 d-flex align-items-center">
+      <header className="border-bottom pb-2">
+        <h2
+          id="user-info-heading"
+          className="h5 fw-bold text-dark mb-1 d-flex align-items-center"
+        >
           <i className="bi bi-person-circle text-primary me-2"></i>
           Kişisel Bilgiler
-        </h5>
+        </h2>
         <p className="text-muted small mb-0" style={{ fontSize: "0.85rem" }}>
           İletişim ve profil bilgilerini düzenle.
         </p>
-      </div>
+      </header>
 
       {/* --- FORM ALANI --- */}
       <div className="card bg-light border-0 shadow-sm">
@@ -118,12 +124,17 @@ const UserInfo = () => {
             <hr className="my-1 text-muted opacity-25" />
 
             {/* 2. Ad Soyad (Yan Yana) */}
-            <div className="row g-2">
+            <fieldset className="row g-2 border-0 p-0 m-0">
+              <legend className="visually-hidden">Ad ve Soyad Bilgileri</legend>
               <div className="col-6">
-                <label className="form-label small fw-bold text-secondary mb-1">
+                <label
+                  htmlFor="name"
+                  className="form-label small fw-bold text-secondary mb-1"
+                >
                   Ad
                 </label>
                 <input
+                  id="name"
                   type="text"
                   className="form-control form-control-sm"
                   name="name"
@@ -133,10 +144,14 @@ const UserInfo = () => {
                 />
               </div>
               <div className="col-6">
-                <label className="form-label small fw-bold text-secondary mb-1">
+                <label
+                  htmlFor="lastName"
+                  className="form-label small fw-bold text-secondary mb-1"
+                >
                   Soyad
                 </label>
                 <input
+                  id="lastName"
                   type="text"
                   className="form-control form-control-sm"
                   name="lastName"
@@ -145,7 +160,7 @@ const UserInfo = () => {
                   placeholder="Soyadınız"
                 />
               </div>
-            </div>
+            </fieldset>
 
             {/* 3. Ünvan */}
             <div>
@@ -218,9 +233,15 @@ const UserInfo = () => {
             </div>
 
             {/* 6. Sosyal Medya */}
-            <div className="row g-2">
+            <fieldset className="row g-2 border-0 p-0 m-0">
+              <legend className="visually-hidden">
+                Sosyal Medya Hesapları
+              </legend>
               <div className="col-6">
-                <label className="form-label small fw-bold text-secondary mb-1">
+                <label
+                  htmlFor="linkedin"
+                  className="form-label small fw-bold text-secondary mb-1"
+                >
                   LinkedIn
                 </label>
                 <div className="input-group input-group-sm">
@@ -228,6 +249,7 @@ const UserInfo = () => {
                     <i className="bi bi-linkedin"></i>
                   </span>
                   <input
+                    id="linkedin"
                     type="text"
                     className="form-control"
                     name="linkedin"
@@ -238,7 +260,10 @@ const UserInfo = () => {
                 </div>
               </div>
               <div className="col-6">
-                <label className="form-label small fw-bold text-secondary mb-1">
+                <label
+                  htmlFor="github"
+                  className="form-label small fw-bold text-secondary mb-1"
+                >
                   GitHub
                 </label>
                 <div className="input-group input-group-sm">
@@ -246,6 +271,7 @@ const UserInfo = () => {
                     <i className="bi bi-github"></i>
                   </span>
                   <input
+                    id="github"
                     type="text"
                     className="form-control"
                     name="github"
@@ -255,7 +281,7 @@ const UserInfo = () => {
                   />
                 </div>
               </div>
-            </div>
+            </fieldset>
 
             {/* 7. Hakkımda */}
             <div>
@@ -291,7 +317,7 @@ const UserInfo = () => {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

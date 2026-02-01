@@ -1,10 +1,15 @@
 import React from "react";
-// Projende react-router-dom kullanıyorsan aşağıdaki satırı aç:
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 const NotFoundPage = () => {
   return (
     <div className="d-flex align-items-center justify-content-center min-vh-100 bg-light ">
+      <SEO
+        title="Sayfa Bulunamadı - 404"
+        description="Aradığınız sayfa bulunamadı."
+        noindex={true}
+      />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6 text-center">
@@ -58,13 +63,12 @@ const NotFoundPage = () => {
 
             {/* Aksiyon Butonları */}
             <div className="d-grid gap-3 d-sm-flex justify-content-sm-center">
-              {/* React Router kullanıyorsan <Link> kullan, yoksa <a> */}
-              <a href="/" className="btn btn-primary btn-lg px-4 fw-bold">
+              <Link to="/" className="btn btn-primary btn-lg px-4 fw-bold">
                 Ana Sayfaya Dön
-              </a>
-              <a href="/cv" className="btn btn-outline-dark btn-lg px-4">
+              </Link>
+              <Link to="/cv" className="btn btn-outline-dark btn-lg px-4">
                 Yeni Bir CV Oluştur
-              </a>
+              </Link>
             </div>
 
             <div className="mt-5 text-muted small">
