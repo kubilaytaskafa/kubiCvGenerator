@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-// react-to-print yerine html2pdf.js kullanılıyor
-import { asBlob } from "html-docx-js-typescript";
-import { saveAs } from "file-saver";
+import { generateAtsDocx } from "../utils/atsDocxGenerator";
 import AtsScoreWidget from "../components/AtsScoreWidget"; // Widget importu
+import { useSelector } from "react-redux";
 
 const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
+  // Redux state'lerini al (DOCX için gerekli)
+  const userInfo = useSelector((state) => state.userInfo);
+  const { experiences } = useSelector((state) => state.experiences);
+  const { educations } = useSelector((state) => state.educations);
+  const skillsState = useSelector((state) => state.skills);
+  const { socialSkills } = useSelector((state) => state.socialSkills);
+  const { projects } = useSelector((state) => state.projects);
+  const { certificates } = useSelector((state) => state.certificates);
+
   const [isDownloading, setIsDownloading] = useState(false);
 
   // --- PDF İNDİRME İŞLEVİ ---
@@ -42,41 +50,27 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
     }
   };
 
-  // --- DOCX İNDİRME İŞLEVİ ---
+  // --- DOCX İNDİRME İŞLEVİ (ATS UYUMLU) ---
   const handleDocxDownload = async () => {
-    if (!targetRef.current) return;
-
-    // Word için basit bir CSS sıfırlama ve Times New Roman zorlaması
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="UTF-8">
-          <title>${fileName}</title>
-          <style>
-             body { font-family: 'Times New Roman', serif; color: #000; }
-             h1, h2, h3, h4 { font-weight: bold; }
-             ul { list-style-type: disc; margin-left: 20px; }
-             li { margin-bottom: 5px; }
-             a { text-decoration: none; color: black; }
-             table { width: 100%; border-collapse: collapse; }
-          </style>
-        </head>
-        <body>
-          ${targetRef.current.outerHTML}
-        </body>
-      </html>
-    `;
-
     try {
-      const data = await asBlob(htmlContent, {
-        orientation: "portrait",
-        margins: { top: 720, right: 720, bottom: 720, left: 720 }, // Word marginleri (twip)
-      });
-      saveAs(data, `${fileName}.docx`);
+      setIsDownloading(true);
+      await generateAtsDocx(
+        {
+          userInfo,
+          experiences,
+          educations,
+          skillsState,
+          socialSkills,
+          projects,
+          certificates,
+        },
+        fileName,
+      );
     } catch (error) {
       console.error("Word indirme hatası:", error);
       alert("Word dosyası oluşturulurken bir hata oluştu.");
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -112,10 +106,24 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
       {/* WORD BUTONU */}
       <button
         onClick={handleDocxDownload}
+        disabled={isDownloading}
         className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"
         style={{ height: "38px" }}
       >
-        <i className="bi bi-file-earmark-word-fill"></i> Word
+        {isDownloading ? (
+          <>
+            <span
+              className="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Processing...
+          </>
+        ) : (
+          <>
+            <i className="bi bi-file-earmark-word-fill"></i> Word
+          </>
+        )}
       </button>
 
       <style>{`

@@ -11,9 +11,13 @@ const defaultState = {
   phoneNumber: "",
   email: "",
   address: "",
+  city: "", // Şehir - ATS için önemli
+  country: "", // Ülke - ATS için önemli
   linkedin: "",
   github: "",
+  website: "", // Kişisel website
   about: "", // Hakkımda yazısı
+  summary: "", // Professional Summary - ATS skorunu artırır
 };
 
 // 1. BAŞLANGIÇ STATE'İ (LocalStorage'dan Oku)

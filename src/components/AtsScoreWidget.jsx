@@ -4,77 +4,64 @@ import { calculateAtsScore } from "../utils/atsScorer";
 
 const AtsScoreWidget = () => {
   const fullState = useSelector((state) => state);
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
-  const { score, feedback } = useMemo(
+  const { score, details, summary } = useMemo(
     () => calculateAtsScore(fullState),
     [fullState],
   );
 
-  const getColor = (s) => {
-    if (s >= 90) return "#22c55e"; // Yeşil
-    if (s >= 70) return "#eab308"; // Sarı
-    return "#ef4444"; // Kırmızı
-  };
-
-  const currentColor = getColor(score);
-
   const styles = {
-    // --- BURASI DEĞİŞTİ ---
-    // Artık fixed/absolute değil, bulunduğu yerin kutusu.
-    container: {
-      position: "relative", // Tooltip buna göre konumlanacak
+    // Kompakt widget butonu
+    widget: {
+      position: "relative",
       display: "flex",
       alignItems: "center",
       gap: "10px",
       backgroundColor: "white",
-      borderRadius: "6px", // Bootstrap butonlarına benzer ovallik
-      border: "1px solid #dee2e6", // Bootstrap border rengi
-      padding: "4px 12px", // Buton boyutlarına yakın padding
+      borderRadius: "6px",
+      border: `2px solid ${summary.color}`,
+      padding: "6px 14px",
       cursor: "pointer",
       fontFamily: "'Segoe UI', sans-serif",
       transition: "all 0.2s ease",
-      height: "38px", // Bootstrap standart buton yüksekliği (yaklaşık)
-      boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+      height: "38px",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
     },
-    // Daire boyutlarını butona sığacak şekilde küçülttük
-    circleContainer: {
+    widgetHover: {
+      transform: "translateY(-1px)",
+      boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+    },
+    // Skor göstergesi
+    scoreCircle: {
+      width: "28px",
+      height: "28px",
+      borderRadius: "50%",
+      background: `conic-gradient(${summary.color} ${score * 3.6}deg, #e5e7eb 0deg)`,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "10px",
+      fontWeight: "bold",
+      color: "#fff",
       position: "relative",
-      width: "30px",
-      height: "30px",
     },
-    svg: {
-      transform: "rotate(-90deg)",
-      width: "100%",
-      height: "100%",
-    },
-    circleBg: {
-      fill: "none",
-      stroke: "#e5e7eb",
-      strokeWidth: "3",
-    },
-    circleProgress: {
-      fill: "none",
-      stroke: currentColor,
-      strokeWidth: "3", // Çizgi kalınlığı
-      strokeDasharray: "75", // 2 * PI * 12 (r=12)
-      strokeDashoffset: 75 - (75 * score) / 100,
-      transition: "stroke-dashoffset 0.8s ease, stroke 0.3s ease",
-    },
-    scoreText: {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      fontSize: "9px", // Font küçüldü
+    scoreInner: {
+      width: "22px",
+      height: "22px",
+      borderRadius: "50%",
+      backgroundColor: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: summary.color,
+      fontSize: "9px",
       fontWeight: "800",
-      color: "#374151",
     },
     textCol: {
       display: "flex",
       flexDirection: "column",
-      alignItems: "flex-end",
-      lineHeight: "1",
+      lineHeight: "1.2",
     },
     label: {
       fontSize: "11px",
@@ -83,82 +70,301 @@ const AtsScoreWidget = () => {
     },
     statusText: {
       fontSize: "9px",
-      color: "#6b7280",
-      whiteSpace: "nowrap",
+      color: summary.color,
+      fontWeight: "600",
     },
-    // Tooltip ayarları (Z-index artırıldı)
-    tooltip: {
-      position: "absolute",
-      top: "45px", // Widget'ın hemen altı
-      right: "0",
-      width: "250px",
+    // Detaylı analiz modal
+    modal: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      display: showDetails ? "flex" : "none",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999,
+      padding: "20px",
+    },
+    modalContent: {
       backgroundColor: "white",
-      border: "1px solid #e5e7eb",
-      borderRadius: "8px",
-      padding: "12px",
-      boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
-      display: showTooltip ? "block" : "none",
-      zIndex: 1050, // Bootstrap modal/dropdown seviyesine çıkardık
-      textAlign: "left",
+      borderRadius: "12px",
+      maxWidth: "700px",
+      width: "100%",
+      maxHeight: "90vh",
+      overflow: "auto",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
     },
-    tooltipTitle: {
-      fontSize: "12px",
+    modalHeader: {
+      padding: "24px",
+      borderBottom: "2px solid #f3f4f6",
+      position: "sticky",
+      top: 0,
+      backgroundColor: "white",
+      zIndex: 1,
+      borderRadius: "12px 12px 0 0",
+    },
+    modalTitle: {
+      fontSize: "24px",
       fontWeight: "bold",
-      marginBottom: "8px",
       color: "#111827",
-      borderBottom: "1px solid #f3f4f6",
-      paddingBottom: "4px",
-    },
-    feedbackItem: {
-      fontSize: "11px",
-      color: "#ef4444",
-      marginBottom: "4px",
+      marginBottom: "8px",
       display: "flex",
-      alignItems: "start",
+      alignItems: "center",
+      gap: "12px",
+    },
+    scoreDisplay: {
+      display: "flex",
+      alignItems: "center",
+      gap: "16px",
+      marginTop: "16px",
+      padding: "16px",
+      backgroundColor: "#f9fafb",
+      borderRadius: "8px",
+      border: `2px solid ${summary.color}`,
+    },
+    bigScore: {
+      fontSize: "48px",
+      fontWeight: "bold",
+      color: summary.color,
+    },
+    scoreInfo: {
+      flex: 1,
+    },
+    scoreLevel: {
+      fontSize: "18px",
+      fontWeight: "bold",
+      color: summary.color,
+      marginBottom: "4px",
+    },
+    scoreMessage: {
+      fontSize: "14px",
+      color: "#6b7280",
+      lineHeight: "1.5",
+    },
+    modalBody: {
+      padding: "24px",
+    },
+    section: {
+      marginBottom: "24px",
+    },
+    sectionTitle: {
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "#111827",
+      marginBottom: "12px",
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+    },
+    itemCard: {
+      backgroundColor: "#f9fafb",
+      borderRadius: "8px",
+      padding: "12px 16px",
+      marginBottom: "8px",
+      borderLeft: "4px solid",
+      transition: "all 0.2s ease",
+    },
+    itemCardCritical: {
+      borderLeftColor: "#ef4444",
+      backgroundColor: "#fef2f2",
+    },
+    itemCardImportant: {
+      borderLeftColor: "#f97316",
+      backgroundColor: "#fff7ed",
+    },
+    itemCardOptional: {
+      borderLeftColor: "#3b82f6",
+      backgroundColor: "#eff6ff",
+    },
+    itemHeader: {
+      display: "flex",
+      alignItems: "center",
+      gap: "8px",
+      marginBottom: "4px",
+    },
+    itemIcon: {
+      fontSize: "18px",
+    },
+    itemTitle: {
+      fontSize: "14px",
+      fontWeight: "600",
+      color: "#111827",
+    },
+    itemDescription: {
+      fontSize: "13px",
+      color: "#6b7280",
+      marginLeft: "26px",
+      lineHeight: "1.5",
+    },
+    closeButton: {
+      position: "absolute",
+      top: "20px",
+      right: "20px",
+      backgroundColor: "transparent",
+      border: "none",
+      fontSize: "28px",
+      cursor: "pointer",
+      color: "#9ca3af",
+      transition: "color 0.2s",
+      padding: "4px 8px",
+      lineHeight: "1",
+    },
+    emptyState: {
+      textAlign: "center",
+      padding: "32px",
+      color: "#22c55e",
+    },
+    emptyIcon: {
+      fontSize: "48px",
+      marginBottom: "16px",
+    },
+    emptyText: {
+      fontSize: "16px",
+      fontWeight: "600",
+      color: "#22c55e",
     },
   };
 
+  const renderItems = (items, type) => {
+    if (!items || items.length === 0) return null;
+
+    const cardStyle = {
+      ...styles.itemCard,
+      ...(type === "critical" ? styles.itemCardCritical : {}),
+      ...(type === "important" ? styles.itemCardImportant : {}),
+      ...(type === "optional" ? styles.itemCardOptional : {}),
+    };
+
+    return items.map((item, index) => (
+      <div key={index} style={cardStyle}>
+        <div style={styles.itemHeader}>
+          <span style={styles.itemIcon}>{item.icon}</span>
+          <span style={styles.itemTitle}>{item.title}</span>
+        </div>
+        <div style={styles.itemDescription}>{item.description}</div>
+      </div>
+    ));
+  };
+
+  const totalIssues =
+    (details.critical?.length || 0) +
+    (details.important?.length || 0) +
+    (details.optional?.length || 0);
+
   return (
-    <div
-      style={styles.container}
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-      // Bootstrap hover efekti için class ekleyebilirsin istersen: className="hover-shadow"
-    >
-      <div style={styles.textCol}>
-        <span style={styles.label}>ATS SKORU</span>
-        <span style={styles.statusText}>
-          {score === 100 ? "Mükemmel" : "Geliştirilmeli"}
-        </span>
+    <>
+      {/* Kompakt Widget */}
+      <div
+        style={styles.widget}
+        onClick={() => setShowDetails(true)}
+        onMouseEnter={(e) => {
+          Object.assign(e.currentTarget.style, styles.widgetHover);
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+        }}
+      >
+        <div style={styles.textCol}>
+          <span style={styles.label}>ATS SKORU</span>
+          <span style={styles.statusText}>{summary.level}</span>
+        </div>
+
+        <div style={styles.scoreCircle}>
+          <div style={styles.scoreInner}>{score}</div>
+        </div>
       </div>
 
-      <div style={styles.circleContainer}>
-        <svg style={styles.svg}>
-          {/* r değerini 12 yaptık (boyut 30px olduğu için) */}
-          <circle cx="15" cy="15" r="12" style={styles.circleBg} />
-          <circle cx="15" cy="15" r="12" style={styles.circleProgress} />
-        </svg>
-        <div style={styles.scoreText}>%{score}</div>
-      </div>
+      {/* Detaylı Analiz Modal */}
+      <div style={styles.modal} onClick={() => setShowDetails(false)}>
+        <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div style={styles.modalHeader}>
+            <button
+              style={styles.closeButton}
+              onClick={() => setShowDetails(false)}
+              onMouseEnter={(e) => (e.target.style.color = "#374151")}
+              onMouseLeave={(e) => (e.target.style.color = "#9ca3af")}
+            >
+              ×
+            </button>
 
-      <div style={styles.tooltip}>
-        <div style={styles.tooltipTitle}>Geliştirilecek Alanlar:</div>
-        {feedback.length === 0 ? (
-          <div
-            style={{ fontSize: "11px", color: "#22c55e", fontWeight: "bold" }}
-          >
-            Mükemmel! ATS için hazır. 🎉
-          </div>
-        ) : (
-          feedback.map((item, index) => (
-            <div key={index} style={styles.feedbackItem}>
-              <span style={{ marginRight: "6px" }}>⚠️</span>
-              {item}
+            <div style={styles.modalTitle}>
+              <span>{summary.emoji}</span>
+              <span>ATS Uyumluluk Analizi</span>
             </div>
-          ))
-        )}
+
+            <div style={styles.scoreDisplay}>
+              <div style={styles.bigScore}>{score}</div>
+              <div style={styles.scoreInfo}>
+                <div style={styles.scoreLevel}>{summary.level}</div>
+                <div style={styles.scoreMessage}>{summary.message}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={styles.modalBody}>
+            {totalIssues === 0 ? (
+              <div style={styles.emptyState}>
+                <div style={styles.emptyIcon}>🎉</div>
+                <div style={styles.emptyText}>
+                  Tebrikler! CV'niz %100 ATS uyumlu!
+                </div>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#6b7280",
+                    marginTop: "8px",
+                  }}
+                >
+                  İş başvurularınızda başarılar dileriz!
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Kritik Eksiklikler */}
+                {details.critical && details.critical.length > 0 && (
+                  <div style={styles.section}>
+                    <div style={styles.sectionTitle}>
+                      <span>🚨</span>
+                      <span>
+                        Kritik Eksiklikler ({details.critical.length})
+                      </span>
+                    </div>
+                    {renderItems(details.critical, "critical")}
+                  </div>
+                )}
+
+                {/* Önemli Öneriler */}
+                {details.important && details.important.length > 0 && (
+                  <div style={styles.section}>
+                    <div style={styles.sectionTitle}>
+                      <span>⚠️</span>
+                      <span>Önemli Öneriler ({details.important.length})</span>
+                    </div>
+                    {renderItems(details.important, "important")}
+                  </div>
+                )}
+
+                {/* İsteğe Bağlı İyileştirmeler */}
+                {details.optional && details.optional.length > 0 && (
+                  <div style={styles.section}>
+                    <div style={styles.sectionTitle}>
+                      <span>💡</span>
+                      <span>
+                        İsteğe Bağlı İyileştirmeler ({details.optional.length})
+                      </span>
+                    </div>
+                    {renderItems(details.optional, "optional")}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

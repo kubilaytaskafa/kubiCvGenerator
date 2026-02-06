@@ -217,22 +217,66 @@ const UserInfo = () => {
               </div>
             </div>
 
-            {/* 5. Adres */}
-            <div>
-              <label className="form-label small fw-bold text-secondary mb-1">
-                Adres (Şehir/Ülke)
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder="İstanbul, Türkiye"
-              />
+            {/* 5. Konum Bilgileri (ATS için ÇOK ÖNEMLİ!) */}
+            <div className="row g-2">
+              <div className="col-6">
+                <label className="form-label small fw-bold text-secondary mb-1">
+                  <i className="bi bi-geo-alt text-danger me-1"></i>
+                  Şehir <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  name="city"
+                  value={formData.city || ""}
+                  onChange={handleChange}
+                  placeholder="İstanbul"
+                />
+                <small className="text-muted" style={{ fontSize: "0.7rem" }}>
+                  ATS skorunu artırır!
+                </small>
+              </div>
+              <div className="col-6">
+                <label className="form-label small fw-bold text-secondary mb-1">
+                  <i className="bi bi-globe text-danger me-1"></i>
+                  Ülke <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  name="country"
+                  value={formData.country || ""}
+                  onChange={handleChange}
+                  placeholder="Türkiye"
+                />
+                <small className="text-muted" style={{ fontSize: "0.7rem" }}>
+                  ATS skorunu artırır!
+                </small>
+              </div>
             </div>
 
-            {/* 6. Sosyal Medya */}
+            {/* 6. Website */}
+            <div>
+              <label className="form-label small fw-bold text-secondary mb-1">
+                <i className="bi bi-link-45deg me-1"></i>
+                Website / Portfolio
+              </label>
+              <div className="input-group input-group-sm">
+                <span className="input-group-text bg-white">
+                  <i className="bi bi-globe"></i>
+                </span>
+                <input
+                  type="url"
+                  className="form-control"
+                  name="website"
+                  value={formData.website || ""}
+                  onChange={handleChange}
+                  placeholder="https://yourwebsite.com"
+                />
+              </div>
+            </div>
+
+            {/* 7. Sosyal Medya */}
             <fieldset className="row g-2 border-0 p-0 m-0">
               <legend className="visually-hidden">
                 Sosyal Medya Hesapları
@@ -253,7 +297,7 @@ const UserInfo = () => {
                     type="text"
                     className="form-control"
                     name="linkedin"
-                    value={formData.linkedin}
+                    value={formData.linkedin || ""}
                     onChange={handleChange}
                     placeholder="Kullanıcı adı"
                   />
@@ -275,7 +319,7 @@ const UserInfo = () => {
                     type="text"
                     className="form-control"
                     name="github"
-                    value={formData.github}
+                    value={formData.github || ""}
                     onChange={handleChange}
                     placeholder="Kullanıcı adı"
                   />
@@ -283,16 +327,36 @@ const UserInfo = () => {
               </div>
             </fieldset>
 
-            {/* 7. Hakkımda */}
+            {/* 8. Professional Summary (ATS için ÖNEMLİ!) */}
             <div>
               <label className="form-label small fw-bold text-secondary mb-1">
-                Hakkımda
+                <i className="bi bi-star text-warning me-1"></i>
+                Professional Summary <span className="text-warning">⭐</span>
+              </label>
+              <textarea
+                className="form-control form-control-sm"
+                name="summary"
+                rows="3"
+                value={formData.summary || ""}
+                onChange={handleChange}
+                placeholder="3-5 cümlelik profesyonel özet. Örn: 5+ years experienced Full-Stack Developer specializing in React and Node.js..."
+                style={{ resize: "vertical" }}
+              ></textarea>
+              <small className="text-muted" style={{ fontSize: "0.7rem" }}>
+                ATS skorunuzu %10 artırır! En az 50 karakter yazın.
+              </small>
+            </div>
+
+            {/* 9. Hakkımda (İsteğe Bağlı) */}
+            <div>
+              <label className="form-label small fw-bold text-secondary mb-1">
+                Hakkımda <small className="text-muted">(İsteğe Bağlı)</small>
               </label>
               <textarea
                 className="form-control form-control-sm"
                 name="about"
                 rows="4"
-                value={formData.about}
+                value={formData.about || ""}
                 onChange={handleChange}
                 placeholder="Kendinizden kısaca bahsedin..."
                 style={{ resize: "vertical" }}
