@@ -14,105 +14,114 @@ const CvAtsScreen = () => {
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
-    return `${(date.getMonth() + 1).toString().padStart(2, "0")}/${date.getFullYear()}`;
+    // ATS için en güvenli format: "June 2023" veya "06/2023"
+    const month = date.toLocaleString("default", { month: "long" });
+    return `${month} ${date.getFullYear()}`;
   };
 
+  // Liste öğelerini temiz render etme
   const renderList = (text) => {
     if (!text) return null;
     return (
-      <ul style={{ margin: "2px 0 5px 0", paddingLeft: "20px" }}>
-        {text.split("\n").map((line, index) => (
-          <li
-            key={index}
-            style={{
-              marginBottom: "2px",
-              fontFamily: "'Times New Roman', serif",
-            }}
-          >
-            {line}
-          </li>
-        ))}
+      <ul
+        style={{ margin: "5px 0", paddingLeft: "18px", listStyleType: "disc" }}
+      >
+        {text.split("\n").map((line, index) => {
+          if (!line.trim()) return null;
+          return (
+            <li
+              key={index}
+              style={{
+                marginBottom: "3px",
+                fontFamily: "'Calibri', 'Times New Roman', serif", // Word uyumluluğu için güvenli fontlar
+                fontSize: "11pt",
+                lineHeight: "1.4",
+              }}
+            >
+              {line}
+            </li>
+          );
+        })}
       </ul>
     );
   };
 
   const joinSkills = (list) => list?.map((i) => i.name).join(", ");
 
-  // --- STİLLER ---
+  // --- STİLLER (Word ve ATS Optimize) ---
   const styles = {
     page: {
-      width: "100%",
-      maxWidth: "210mm",
+      width: "210mm",
       minHeight: "297mm",
-      padding: "15mm 20mm",
-      fontFamily: "'Times New Roman', serif",
+      padding: "20mm", // Standart Word kenar boşluğu
+      fontFamily: "'Calibri', 'Arial', sans-serif", // Sans-serif ATS'de daha temiz okunur, ama Times da olur.
       color: "#000000",
       backgroundColor: "#ffffff",
-      lineHeight: "1.3",
+      lineHeight: "1.2",
       fontSize: "11pt",
       boxSizing: "border-box",
     },
+    // Word'de "Başlık 1" olarak algılanması için H1
     headerName: {
-      fontSize: "20pt",
+      fontSize: "24pt",
       fontWeight: "bold",
       textTransform: "uppercase",
       textAlign: "center",
-      marginBottom: "2px",
-      marginTop: "0",
+      marginBottom: "5px",
+      margin: "0",
+      letterSpacing: "1px",
     },
     headerTitle: {
-      fontSize: "12pt",
+      fontSize: "14pt",
       textAlign: "center",
-      marginBottom: "8px",
+      marginBottom: "10px",
+      fontWeight: "normal",
     },
     contactInfo: {
       textAlign: "center",
       fontSize: "10pt",
-      marginBottom: "15px",
+      marginBottom: "20px",
+      borderBottom: "1px solid #000", // Görsel ayraç
+      paddingBottom: "10px",
     },
+    // Word'de "Başlık 2" olarak algılanması için H2
     sectionTitle: {
-      fontSize: "11pt",
+      fontSize: "12pt",
       fontWeight: "bold",
       textTransform: "uppercase",
       borderBottom: "1px solid #000",
-      paddingBottom: "2px",
-      marginTop: "12px",
-      marginBottom: "8px",
+      paddingBottom: "3px",
+      marginTop: "15px",
+      marginBottom: "10px",
+      letterSpacing: "0.5px",
     },
-    // Word uyumluluğu için Tablo Stili
-    tableLayout: {
-      width: "100%",
-      borderCollapse: "collapse",
-      marginBottom: "2px",
-      border: "none",
-    },
-    tdLeft: {
-      textAlign: "left",
-      fontWeight: "bold",
+    // İş Deneyimi Başlıkları için H3
+    jobTitle: {
       fontSize: "11pt",
-      padding: 0,
-      verticalAlign: "bottom",
-    },
-    tdRight: {
-      textAlign: "right",
-      fontSize: "10pt",
-      padding: 0,
-      verticalAlign: "bottom",
-      whiteSpace: "nowrap", // Tarihin alt satıra kaymasını engeller
+      fontWeight: "bold",
+      margin: 0,
+      display: "inline-block", // Yan yana dizilim için
     },
     companyName: {
-      fontStyle: "italic",
-      marginBottom: "2px",
       fontSize: "11pt",
+      fontStyle: "italic",
+      margin: 0,
+    },
+    dateLocation: {
+      fontSize: "10pt",
+      textAlign: "right",
+      float: "right", // Word bunu sağa yaslar
+      fontWeight: "normal",
+    },
+    // Flexbox yerine Block yapısı (ATS parsing sırası için daha güvenli)
+    entryContainer: {
+      marginBottom: "12px",
+      pageBreakInside: "avoid", // Word'de sayfa sonu bölünmesini engeller
     },
   };
 
   return (
-    <div
-      id="cv-ats-print-area"
-      className="mx-auto shadow-sm"
-      style={styles.page}
-    >
+    <div id="cv-ats-print-area" className="mx-auto" style={styles.page}>
       {/* HEADER */}
       <header>
         <h1 style={styles.headerName}>
@@ -121,194 +130,161 @@ const CvAtsScreen = () => {
         <div style={styles.headerTitle}>{userInfo.title}</div>
 
         <div style={styles.contactInfo}>
-          <div>
-            {userInfo.email}{" "}
-            {userInfo.phoneNumber && `| ${userInfo.phoneNumber}`}
-          </div>
-          <div style={{ marginTop: "2px" }}>
-            {userInfo.linkedin && (
+          <span>{userInfo.email}</span>
+          {userInfo.phoneNumber && <span> | {userInfo.phoneNumber}</span>}
+          {userInfo.linkedin && (
+            <span>
+              {" "}
+              |{" "}
               <a
                 href={`https://linkedin.com/in/${userInfo.linkedin}`}
-                style={{ color: "#000", textDecoration: "none" }}
+                style={{ color: "black", textDecoration: "none" }}
               >
-                linkedin.com/in/{userInfo.linkedin}
+                LinkedIn
               </a>
-            )}
-            {userInfo.github && userInfo.linkedin && " | "}
-            {userInfo.github && (
+            </span>
+          )}
+          {userInfo.github && (
+            <span>
+              {" "}
+              |{" "}
               <a
                 href={`https://github.com/${userInfo.github}`}
-                style={{ color: "#000", textDecoration: "none" }}
+                style={{ color: "black", textDecoration: "none" }}
               >
-                github.com/{userInfo.github}
+                GitHub
               </a>
-            )}
-          </div>
-          {userInfo.address && <div>{userInfo.address}</div>}
+            </span>
+          )}
+          {userInfo.address && <span> | {userInfo.address}</span>}
         </div>
       </header>
 
-      {/* DENEYİM */}
+      {/* ATS İPUCU: Bölüm başlıkları standart olmalı (Experience, Education, Skills).
+         Word İPUCU: H2 etiketleri Word'de Stil olarak gelir.
+      */}
+
+      {/* DENEYİM (PROFESSIONAL EXPERIENCE) */}
       {experiences.length > 0 && (
         <section>
-          <h2 style={styles.sectionTitle}>DENEYİM</h2>
+          <h2 style={styles.sectionTitle}>PROFESSIONAL EXPERIENCE</h2>
           {experiences.map((exp) => (
-            <div
-              key={exp.id}
-              className="ats-item"
-              style={{ marginBottom: "10px" }}
-            >
-              {/* Flexbox yerine Tablo: Word'de %100 çalışır */}
-              <table style={styles.tableLayout}>
-                <tbody>
-                  <tr>
-                    <td style={styles.tdLeft}>{exp.position}</td>
-                    <td style={styles.tdRight}>
-                      {formatDate(exp.startDate)} –{" "}
-                      {exp.endDate ? formatDate(exp.endDate) : "Devam"}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div key={exp.id} style={styles.entryContainer}>
+              {/* Layout: Başlık Solda, Tarih Sağda */}
+              <div
+                style={{
+                  borderBottom: "none",
+                  paddingBottom: "2px",
+                  overflow: "hidden",
+                }}
+              >
+                <h3 style={styles.jobTitle}>{exp.position}</h3>
+                <span style={styles.dateLocation}>
+                  {formatDate(exp.startDate)} –{" "}
+                  {exp.endDate ? formatDate(exp.endDate) : "Present"}
+                </span>
+              </div>
 
-              <div style={styles.companyName}>{exp.company}</div>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={styles.companyName}>{exp.company}</div>
+                {/* Şehir varsa buraya eklenebilir */}
+              </div>
+
               {renderList(exp.description)}
             </div>
           ))}
         </section>
       )}
 
-      {/* EĞİTİM */}
+      {/* EĞİTİM (EDUCATION) */}
       {educations.length > 0 && (
         <section>
-          <h2 style={styles.sectionTitle}>EĞİTİM</h2>
+          <h2 style={styles.sectionTitle}>EDUCATION</h2>
           {educations.map((edu) => (
-            <div
-              key={edu.id}
-              className="ats-item"
-              style={{ marginBottom: "8px" }}
-            >
-              <table style={styles.tableLayout}>
-                <tbody>
-                  <tr>
-                    <td style={styles.tdLeft}>{edu.school}</td>
-                    <td style={styles.tdRight}>
-                      {formatDate(edu.startDate)} –{" "}
-                      {edu.endDate ? formatDate(edu.endDate) : "Devam"}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div key={edu.id} style={styles.entryContainer}>
+              <div style={{ overflow: "hidden" }}>
+                <h3 style={styles.jobTitle}>{edu.school}</h3>
+                <span style={styles.dateLocation}>
+                  {formatDate(edu.startDate)} –{" "}
+                  {edu.endDate ? formatDate(edu.endDate) : "Present"}
+                </span>
+              </div>
               <div style={styles.companyName}>{edu.degree}</div>
             </div>
           ))}
         </section>
       )}
 
-      {/* TEKNİK BECERİLER */}
+      {/* TEKNİK BECERİLER (SKILLS) */}
+      {/* Tablo yerine düz metin listesi ATS için çok daha iyidir */}
       {(skillsState.languages?.length > 0 ||
-        skillsState.programmingLanguages?.length > 0 ||
-        skillsState.developmentAreas?.length > 0 ||
-        skillsState.versionControl?.length > 0) && (
+        skillsState.programmingLanguages?.length > 0) && (
         <section>
-          <h2 style={styles.sectionTitle}>TEKNİK BECERİLER</h2>
-          <div style={{ marginTop: "5px" }}>
-            {skillsState.languages?.length > 0 && (
-              <div style={{ marginBottom: "2px" }}>
-                <span style={{ fontWeight: "bold" }}>Languages: </span>
-                <span>{joinSkills(skillsState.languages)}</span>
-              </div>
-            )}
+          <h2 style={styles.sectionTitle}>SKILLS</h2>
+          <div style={{ fontSize: "11pt", lineHeight: "1.5" }}>
             {skillsState.programmingLanguages?.length > 0 && (
-              <div style={{ marginBottom: "2px" }}>
-                <span style={{ fontWeight: "bold" }}>
-                  Programlama Dilleri:{" "}
-                </span>
+              <div style={{ marginBottom: "4px" }}>
+                <strong>Programming Languages: </strong>
                 <span>{joinSkills(skillsState.programmingLanguages)}</span>
               </div>
             )}
+
             {skillsState.developmentAreas?.length > 0 && (
-              <div style={{ marginBottom: "2px" }}>
-                <span style={{ fontWeight: "bold" }}>
-                  Geliştirme Alanları:{" "}
-                </span>
+              <div style={{ marginBottom: "4px" }}>
+                <strong>Development Areas: </strong>
                 <span>{joinSkills(skillsState.developmentAreas)}</span>
               </div>
             )}
+
             {skillsState.versionControl?.length > 0 && (
-              <div style={{ marginBottom: "2px" }}>
-                <span style={{ fontWeight: "bold" }}>Versiyon Kontrol: </span>
-                <span>{joinSkills(skillsState.versionControl)}</span>
+              <div style={{ marginBottom: "4px" }}>
+                <strong>Tools & Technologies: </strong>
+                <span>
+                  {joinSkills(skillsState.versionControl)}{" "}
+                  {skillsState.projectManagement?.length > 0 &&
+                    ", " + joinSkills(skillsState.projectManagement)}
+                </span>
               </div>
             )}
-            {skillsState.projectManagement?.length > 0 && (
-              <div style={{ marginBottom: "2px" }}>
-                <span style={{ fontWeight: "bold" }}>Proje Yönetimi: </span>
-                <span>{joinSkills(skillsState.projectManagement)}</span>
+
+            {skillsState.languages?.length > 0 && (
+              <div style={{ marginBottom: "4px" }}>
+                <strong>Languages: </strong>
+                <span>{joinSkills(skillsState.languages)}</span>
               </div>
             )}
           </div>
         </section>
       )}
 
-      {/* SOSYAL BECERİLER */}
-      {socialSkills.length > 0 && (
-        <section>
-          <h2 style={styles.sectionTitle}>SOSYAL BECERİLER</h2>
-          <ul style={{ margin: "2px 0", paddingLeft: "20px" }}>
-            {socialSkills.map((skill) => (
-              <li key={skill.id} style={{ marginBottom: "2px" }}>
-                {skill.name}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {/* PROJELER */}
+      {/* PROJELER (PROJECTS) */}
       {projects.length > 0 && (
         <section>
-          <h2 style={styles.sectionTitle}>PROJELERİNİZ</h2>
+          <h2 style={styles.sectionTitle}>PROJECTS</h2>
           {projects.map((proj) => (
-            <div
-              key={proj.id}
-              className="ats-item"
-              style={{ marginTop: "10px" }}
-            >
-              {/* Proje Başlığı ve Link Tablosu */}
-              <table style={styles.tableLayout}>
-                <tbody>
-                  <tr>
-                    <td style={styles.tdLeft}>
-                      {proj.name}
-                      {proj.link && (
-                        <a
-                          href={proj.link}
-                          style={{
-                            fontWeight: "normal",
-                            fontSize: "10pt",
-                            marginLeft: "8px",
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
-                          - {proj.link}
-                        </a>
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-
+            <div key={proj.id} style={styles.entryContainer}>
+              <div style={{ overflow: "hidden" }}>
+                <h3 style={styles.jobTitle}>{proj.name}</h3>
+                {proj.link && (
+                  <span style={{ float: "right", fontSize: "10pt" }}>
+                    <a
+                      href={proj.link}
+                      style={{ color: "#000", textDecoration: "none" }}
+                    >
+                      View Project
+                    </a>
+                  </span>
+                )}
+              </div>
               {proj.technologies && (
                 <div
                   style={{
-                    fontSize: "10pt",
                     fontStyle: "italic",
+                    fontSize: "10pt",
                     marginBottom: "2px",
                   }}
                 >
-                  Teknolojiler: {proj.technologies}
+                  Technologies: {proj.technologies}
                 </div>
               )}
               {renderList(proj.description)}
@@ -317,38 +293,48 @@ const CvAtsScreen = () => {
         </section>
       )}
 
-      {/* SERTİFİKALAR */}
+      {/* SERTİFİKALAR (CERTIFICATIONS) */}
       {certificates.length > 0 && (
         <section>
-          <h2 style={styles.sectionTitle}>SERTİFİKALAR</h2>
-          <ul style={{ margin: "2px 0", paddingLeft: "20px" }}>
+          <h2 style={styles.sectionTitle}>CERTIFICATIONS</h2>
+          <ul style={{ margin: "5px 0", paddingLeft: "18px" }}>
             {certificates.map((cert) => (
-              <li key={cert.id} style={{ marginBottom: "2px" }}>
-                <strong>{cert.title}</strong>
-                <span> | {cert.issuer}</span>
-                {cert.date && (
-                  <span> | {new Date(cert.date).getFullYear()}</span>
-                )}
+              <li key={cert.id} style={{ marginBottom: "3px" }}>
+                <strong>{cert.title}</strong> — {cert.issuer}
+                {cert.date && ` (${new Date(cert.date).getFullYear()})`}
               </li>
             ))}
           </ul>
         </section>
       )}
 
+      {/* SOSYAL BECERİLER (Opsiyonel - ATS genelde Hard Skill sever ama yer varsa eklenir) */}
+      {socialSkills.length > 0 && (
+        <section>
+          <h2 style={styles.sectionTitle}>SOFT SKILLS</h2>
+          <div style={{ fontSize: "11pt" }}>
+            {socialSkills.map((s) => s.name).join(" • ")}
+          </div>
+        </section>
+      )}
+
+      {/* PRINT STYLES */}
       <style>{`
         @media print {
           @page { margin: 0; size: A4; }
-          body { background-color: white; }
+          body { -webkit-print-color-adjust: exact; }
           #cv-ats-print-area {
-            width: 210mm !important;
+            width: 100% !important;
             margin: 0 !important;
-            padding: 15mm 20mm !important;
+            padding: 20mm !important;
             box-shadow: none !important;
-            border: none !important;
           }
+          /* Linklerin mavi ve altı çizili çıkmasını engeller */
           a { text-decoration: none !important; color: #000 !important; }
-          .ats-item { page-break-inside: avoid; }
-          h2 { page-break-after: avoid; }
+          /* Word'e aktarırken sayfa sonu bölünmelerini yönetir */
+          h1, h2, h3 { page-break-after: avoid; }
+          section { page-break-inside: auto; }
+          div[style*="entryContainer"] { page-break-inside: avoid; }
         }
       `}</style>
     </div>
