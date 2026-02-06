@@ -131,4 +131,20 @@ Bu proje **MIT** lisansı altında lisanslanmıştır. Detaylar için `LICENSE` 
 
 <img width="600" height="803" alt="Ekran görüntüsü 2026-01-31 154542" src="https://github.com/user-attachments/assets/a14e570c-c7c3-472d-8f91-8e539c6fa7e5" />
 
+---
+
+## 1.2.0 Güncellemesi
+
+### Güncellemeler 
+- ATS Şablonu İyileştirildi, CV Dili olarak İngilizce Belirlendi.
+- ATS Uyumluluk Skoru Eklendi
+
+### Güncelleme Görüntüleri
+
+<img width="1041" height="334" alt="image" src="https://github.com/user-attachments/assets/8279322a-88a3-40b1-bf69-de00b46fdb59" />
+
+---
+
+<img width="1231" height="736" alt="image" src="https://github.com/user-attachments/assets/35367983-4583-4f5b-b1f8-9bfa2f9d4a83" />
+
 
