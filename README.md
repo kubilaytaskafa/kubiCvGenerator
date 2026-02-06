@@ -1,12 +1,25 @@
-
 # 📄 kubiCvGenerator
 
 **kubiCvGenerator**, modern iş dünyasının standartlarına uygun, **ATS (Applicant Tracking System)** uyumlu özgeçmişler oluşturmanıza olanak tanıyan web tabanlı bir uygulamadır.
 
 Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, anlık önizleme ile takip edebilir ve profesyonel çıktılar alabilirsiniz.
 
+
+## İçindekiler
+
+| 📂 Proje Alanları | 📄 Açıklama | 🔗 Bağlantı |
+| :--- | :--- | :---: |
+| **✨ Özellikler** | Projenin sunduğu temel yetenekler ve ATS uyumu | [Görüntüle 🔽](#ozellikler) |
+| **📸 Ekran Görüntüleri** | Uygulama arayüzünden örnek kareler | [Görüntüle 🔽](#ekran-goruntuleri) |
+| **🛠️ Teknolojiler** | React, Vite, Redux, Bootstrap ve kütüphaneler | [Görüntüle 🔽](#teknolojiler) |
+| **🚀 Kurulum** | Projeyi yerel bilgisayarınızda çalıştırma adımları | [Görüntüle 🔽](#kurulum) |
+| **📝 Lisans** | Projenin kullanım hakları (MIT) | [Görüntüle 🔽](#lisans) |
+| **👨‍💻 Geliştiren** | İletişim ve geliştirici bilgileri | [Görüntüle 🔽](#gelistiren) |
+| **🔄 Güncellemeler** | Versiyon geçmişi (v1.1.0, v1.2.0) | [Görüntüle 🔽](#guncellemeler) |
+
 ---
 
+<a name="ozellikler"></a>
 ## ✨ Özellikler
 
 - **🎯 ATS Uyumlu Tasarım:** İşe alım sistemleri (robotlar) tarafından kolayca taranabilir ve okunabilir formatta CV'ler oluşturur.
@@ -17,6 +30,7 @@ Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, anlık öni
 
 ---
 
+<a name="ekran-goruntuleri"></a>
 ## 📸 Ekran Görüntüleri
 
 <img width="1897" height="870" alt="image" src="https://github.com/user-attachments/assets/d2456c45-17a3-4961-8c8b-c9eeb1865aaf" />
@@ -41,19 +55,23 @@ Kullanıcı dostu arayüzü sayesinde bilgilerinizi hızlıca girip, anlık öni
 
 ---
 
+<a name="teknolojiler"></a>
 ## 🛠️ Kullanılan Teknolojiler
 
 Proje, performans ve geliştirici deneyimi için **React + Vite** altyapısı üzerine inşa edilmiştir.
 
+<a name="core"></a>
 ### ⚙️ Core (Çekirdek)
 - **[React 19](https://react.dev/):** Kullanıcı arayüzü kütüphanesi.
 - **[Vite](https://vitejs.dev/):** Ultra hızlı geliştirme sunucusu ve build aracı.
 - **[Redux Toolkit](https://redux-toolkit.js.org/):** Global state ve veri akışı yönetimi.
 
+<a name="ui-stil"></a>
 ### 🎨 UI & Stil
 - **[Bootstrap 5](https://getbootstrap.com/):** Grid sistemi ve hazır responsive bileşenler.
 - **React Icons & Bootstrap Icons:** Modern simge setleri.
 
+<a name="dosya-cikti"></a>
 ### 🖨️ Dosya & Çıktı İşlemleri
 - **html2pdf.js:** HTML DOM yapısını PDF formatına çevirmek için.
 - **html-docx-js-typescript:** HTML içeriğinden Word dökümanı oluşturmak için.
@@ -61,6 +79,7 @@ Proje, performans ve geliştirici deneyimi için **React + Vite** altyapısı ü
 
 ---
 
+<a name="kurulum"></a>
 ## 🚀 Kurulum ve Çalıştırma
 
 Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyebilirsiniz.
@@ -72,79 +91,80 @@ Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları i
 ```bash
    git clone [https://github.com/kubilaytaskafa/kubiCvGenerator.git](https://github.com/kubilaytaskafa/kubiCvGenerator.git)
 ```
-   
 
-   2. **Proje Dizinine Gidin:**
+2. **Proje Dizinine Gidin**
 
 ```bash
-   cd kubiCvGenerator
+cd kubiCvGenerator
 ```
 
-3. Bağımlılıkları Yükleyin
+3. **Bağımlılıkları yükleyin**
 
 ```bash
 npm install
 ```
 
-4. Uygulamayı Başlatın
+4. **Uygulamayı Başlatın**
 
 ```bash
 npm run dev
 ```
-
+--- 
+<a name="lisans"></a>
 
 ## 📝 Lisans
 
-Bu proje **MIT** lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakabilirsiniz.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için LICENSE dosyasına bakabilirsiniz.
 
-
-****
+---
+<a name="gelistiren"></a>
 ## Geliştiren
 
 - Kubilay Taşkafa
+
 - info.kubilay0@gmail.com
+
 - https://linkedin.com/in/kubilaytaskafa
 
 ---
-# GÜNCELLEMELER
+<a name="guncellemeler"></a>
+## Güncellemeler
 
-## 1.1.0 Güncellemesi 
+<a name="update-110"></a>
+### 1.1.0 Güncellemesi
 
-### Güncellemeler
+#### Güncellemeler
+
 - Favicon güncellemesi yapıldı
+
 - Modern , Elegant,Natural ve Professional Cv paletleri eklendi
+
 - Skills alanları için contants oluşturuldu , kullanıcıya bu alanlar için searchable component sunuldu
 
-### Güncelleme Görüntüleri
+Güncelleme Görüntüleri
 
 <img width="701" height="795" alt="Ekran görüntüsü 2026-01-31 154039" src="https://github.com/user-attachments/assets/c6ab30e8-9bfb-4f82-a317-bd945a21b5ca" />
 
-****
-
 <img width="522" height="741" alt="Ekran görüntüsü 2026-01-31 154237" src="https://github.com/user-attachments/assets/d8e03d5d-a6c6-46a7-b93e-ced32ae254fe" />
 
-****
-
 <img width="475" height="717" alt="Ekran görüntüsü 2026-01-31 154402" src="https://github.com/user-attachments/assets/bb13e5bd-6535-45ab-962a-eafe4f531720" />
-
-****
 
 <img width="600" height="803" alt="Ekran görüntüsü 2026-01-31 154542" src="https://github.com/user-attachments/assets/a14e570c-c7c3-472d-8f91-8e539c6fa7e5" />
 
 ---
 
-## 1.2.0 Güncellemesi
+<a name="update-120"></a>
+### 1.2.0 Güncellemesi
 
-### Güncellemeler 
+#### Güncellemeler
+
 - ATS Şablonu İyileştirildi, CV Dili olarak İngilizce Belirlendi.
+
 - ATS Uyumluluk Skoru Eklendi
 
-### Güncelleme Görüntüleri
+#### Güncelleme Görüntüleri
 
 <img width="1041" height="334" alt="image" src="https://github.com/user-attachments/assets/8279322a-88a3-40b1-bf69-de00b46fdb59" />
 
----
-
 <img width="1231" height="736" alt="image" src="https://github.com/user-attachments/assets/35367983-4583-4f5b-b1f8-9bfa2f9d4a83" />
-
 
