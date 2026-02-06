@@ -1,25 +1,25 @@
 export const LANGUAGES = [
-  { value: "tr", label: "Türkçe" },
-  { value: "en", label: "İngilizce" },
-  { value: "de", label: "Almanca" },
-  { value: "fr", label: "Fransızca" },
-  { value: "es", label: "İspanyolca" },
-  { value: "it", label: "İtalyanca" },
-  { value: "ru", label: "Rusça" },
-  { value: "ar", label: "Arapça" },
-  { value: "ja", label: "Japonca" },
-  { value: "zh", label: "Çince" },
+  { value: "tr", label: "Turkish" },
+  { value: "en", label: "English" },
+  { value: "de", label: "German" },
+  { value: "fr", label: "French" },
+  { value: "es", label: "Spanish" },
+  { value: "it", label: "Italian" },
+  { value: "ru", label: "Russian" },
+  { value: "ar", label: "Arabic" },
+  { value: "ja", label: "Japanese" },
+  { value: "zh", label: "Chinese" },
 ];
 
-// Dil Seviyeleri (Eğer kullanıcının seviye seçmesini de isterseniz)
+// Language Levels (Standardized for ATS)
 export const LANGUAGE_LEVELS = [
-  { value: "A1", label: "A1 - Başlangıç" },
-  { value: "A2", label: "A2 - Temel" },
-  { value: "B1", label: "B1 - Orta" },
-  { value: "B2", label: "B2 - İyi" },
-  { value: "C1", label: "C1 - İleri" },
-  { value: "C2", label: "C2 - Yetkin (Ana Dil Seviyesi)" },
-  { value: "native", label: "Ana Dil" },
+  { value: "A1", label: "A1 - Beginner" },
+  { value: "A2", label: "A2 - Elementary" },
+  { value: "B1", label: "B1 - Intermediate" },
+  { value: "B2", label: "B2 - Upper Intermediate" },
+  { value: "C1", label: "C1 - Advanced" },
+  { value: "C2", label: "C2 - Proficient" },
+  { value: "native", label: "Native Speaker" },
 ];
 
 // --- PROGRAMLAMA DİLLERİ & BETİK DİLLERİ ---

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-// react-to-print kaldırıldı, yerine html2pdf.js kullanacağız (importu dinamik yapacağız)
+// react-to-print yerine html2pdf.js kullanılıyor
 import { asBlob } from "html-docx-js-typescript";
 import { saveAs } from "file-saver";
+import AtsScoreWidget from "../components/AtsScoreWidget"; // Widget importu
 
 const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // --- PDF İNDİRME İŞLEVİ (HTML2PDF - DİREKT İNDİRME) ---
+  // --- PDF İNDİRME İŞLEVİ ---
   const handlePdfDownload = async () => {
     if (!targetRef.current) {
       alert("İçerik bulunamadı.");
@@ -15,45 +16,37 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
 
     setIsDownloading(true);
 
-    // html2pdf.js'i sadece bu fonksiyon çalıştığında import ediyoruz (Performance için)
-    const html2pdf = (await import("html2pdf.js")).default;
+    try {
+      const html2pdf = (await import("html2pdf.js")).default;
+      const element = targetRef.current;
 
-    const element = targetRef.current;
+      const opt = {
+        margin: 0,
+        filename: `${fileName}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: false, // Konsol kirliliğini azalttım
+        },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
 
-    // PDF Ayarları
-    const opt = {
-      margin: 0, // Kenar boşluklarını sıfırlıyoruz (zaten tasarımda padding var)
-      filename: `${fileName}.pdf`,
-      image: { type: "jpeg", quality: 0.98 }, // Resim kalitesi
-      html2canvas: {
-        scale: 2, // Yüksek çözünürlük için scale artırıldı
-        useCORS: true, // Resimlerin yüklenmesi için gerekli
-        logging: true,
-      },
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-    };
-
-    // PDF'i oluştur ve indir
-    html2pdf()
-      .set(opt)
-      .from(element)
-      .save()
-      .then(() => {
-        setIsDownloading(false);
-        // İndirme bittiğinde opsiyonel alert
-        // alert("PDF İndirildi!");
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsDownloading(false);
-        alert("PDF oluşturulurken bir hata oluştu.");
-      });
+      await html2pdf().set(opt).from(element).save();
+      // Başarılı olursa buraya düşer
+    } catch (err) {
+      console.error(err);
+      alert("PDF oluşturulurken bir hata oluştu.");
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
-  // --- DOCX (WORD) İNDİRME İŞLEVİ ---
+  // --- DOCX İNDİRME İŞLEVİ ---
   const handleDocxDownload = async () => {
     if (!targetRef.current) return;
 
+    // Word için basit bir CSS sıfırlama ve Times New Roman zorlaması
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -61,11 +54,12 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
           <meta charset="UTF-8">
           <title>${fileName}</title>
           <style>
-             body { font-family: 'Times New Roman', serif; }
-             ul { list-style-type: disc; padding-left: 20px; }
+             body { font-family: 'Times New Roman', serif; color: #000; }
+             h1, h2, h3, h4 { font-weight: bold; }
+             ul { list-style-type: disc; margin-left: 20px; }
              li { margin-bottom: 5px; }
-             /* Linklerin mavi ve altı çizili olmasını engelle (Word için) */
              a { text-decoration: none; color: black; }
+             table { width: 100%; border-collapse: collapse; }
           </style>
         </head>
         <body>
@@ -77,7 +71,7 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
     try {
       const data = await asBlob(htmlContent, {
         orientation: "portrait",
-        margins: { top: 720, right: 720, bottom: 720, left: 720 },
+        margins: { top: 720, right: 720, bottom: 720, left: 720 }, // Word marginleri (twip)
       });
       saveAs(data, `${fileName}.docx`);
     } catch (error) {
@@ -87,12 +81,17 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
   };
 
   return (
-    <div className="d-flex gap-2 justify-content-end mb-3 no-print">
+    // 'align-items-center' ekledik ki widget ve butonlar aynı hizada dursun
+    <div className="d-flex gap-2 justify-content-end align-items-center mb-3 no-print">
+      {/* ATS SKOR WIDGET: Artık flex flow içinde bir kutu */}
+      <AtsScoreWidget />
+
       {/* PDF BUTONU */}
       <button
         onClick={handlePdfDownload}
         disabled={isDownloading}
         className="btn btn-danger d-flex align-items-center gap-2 shadow-sm"
+        style={{ height: "38px" }} // Yükseklik sabitleme (opsiyonel, widget ile uyum için)
       >
         {isDownloading ? (
           <>
@@ -101,11 +100,11 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
               role="status"
               aria-hidden="true"
             ></span>
-            İndiriliyor...
+            Processing...
           </>
         ) : (
           <>
-            <i className="bi bi-file-earmark-pdf-fill"></i> PDF İndir
+            <i className="bi bi-file-earmark-pdf-fill"></i> PDF
           </>
         )}
       </button>
@@ -114,11 +113,11 @@ const DownloadButtons = ({ targetRef, fileName = "My_CV" }) => {
       <button
         onClick={handleDocxDownload}
         className="btn btn-primary d-flex align-items-center gap-2 shadow-sm"
+        style={{ height: "38px" }}
       >
-        <i className="bi bi-file-earmark-word-fill"></i> Word İndir
+        <i className="bi bi-file-earmark-word-fill"></i> Word
       </button>
 
-      {/* Yazdırma Stili */}
       <style>{`
         @media print {
           .no-print { display: none !important; }
