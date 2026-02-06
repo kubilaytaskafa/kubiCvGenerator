@@ -1,13 +1,20 @@
-// utils/atsScorer.js
-
 export const calculateAtsScore = (state) => {
   let score = 0;
   let feedback = [];
 
-  const { userInfo, experiences, educations, skills, projects } = state;
+  // State'i parçala ama içerideki dizilere (array) ulaşmak için doğru yolu izle
+  const userInfo = state.userInfo || {};
 
-  // 1. İLETİŞİM BİLGİLERİ (20 Puan)
-  // ATS için en kritik verilerdir.
+  // Düzeltme Burada: Slice objesi içindeki asıl diziyi alıyoruz
+  // Eğer state.experiences undefined ise boş dizi ata
+  const experiences = state.experiences?.experiences || [];
+  const educations = state.educations?.educations || [];
+  const projects = state.projects?.projects || [];
+
+  // Skills yapısı genelde düz obje olduğu için direkt gelebilir ama yine de kontrol edelim
+  const skills = state.skills || {};
+
+  // --- 1. İLETİŞİM BİLGİLERİ (20 Puan) ---
   if (userInfo.name && userInfo.lastName) score += 5;
   else feedback.push("İsim ve Soyisim girilmedi.");
 
@@ -20,12 +27,11 @@ export const calculateAtsScore = (state) => {
   if (userInfo.linkedin || userInfo.github) score += 5;
   else feedback.push("LinkedIn veya GitHub profili eklenmedi.");
 
-  // 2. İŞ DENEYİMİ (35 Puan)
-  // En yüksek ağırlık buradadır.
-  if (experiences && experiences.length > 0) {
-    score += 15; // En az 1 deneyim var
+  // --- 2. İŞ DENEYİMİ (35 Puan) ---
+  if (experiences.length > 0) {
+    score += 15;
 
-    // Açıklamaların uzunluğu kontrolü
+    // Açıklama kontrolü
     const hasDetailedDesc = experiences.every(
       (exp) => exp.description && exp.description.length > 40,
     );
@@ -42,15 +48,14 @@ export const calculateAtsScore = (state) => {
     feedback.push("Hiç iş deneyimi eklenmemiş. (Stajlar dahil ekleyiniz)");
   }
 
-  // 3. EĞİTİM (15 Puan)
-  if (educations && educations.length > 0) {
+  // --- 3. EĞİTİM (15 Puan) ---
+  if (educations.length > 0) {
     score += 15;
   } else {
     feedback.push("Eğitim bilgisi girilmedi.");
   }
 
-  // 4. YETENEKLER (20 Puan)
-  // Keyword matching için kritiktir.
+  // --- 4. YETENEKLER (20 Puan) ---
   const totalSkills =
     (skills.programmingLanguages?.length || 0) +
     (skills.developmentAreas?.length || 0) +
@@ -65,8 +70,8 @@ export const calculateAtsScore = (state) => {
     feedback.push("Hiç teknik yetenek eklenmemiş.");
   }
 
-  // 5. PROJELER (10 Puan)
-  if (projects && projects.length > 0) {
+  // --- 5. PROJELER (10 Puan) ---
+  if (projects.length > 0) {
     score += 10;
   } else {
     feedback.push("Proje eklemek ATS skorunu artırır.");
