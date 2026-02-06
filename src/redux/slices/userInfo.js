@@ -10,14 +10,12 @@ const defaultState = {
   image: "", // Base64 formatında resim string'i
   phoneNumber: "",
   email: "",
-  address: "",
   city: "", // Şehir - ATS için önemli
   country: "", // Ülke - ATS için önemli
   linkedin: "",
   github: "",
   website: "", // Kişisel website
-  about: "", // Hakkımda yazısı
-  summary: "", // Professional Summary - ATS skorunu artırır
+  summary: "", // Profesyonel Özet - ATS skorunu artırır
 };
 
 // 1. BAŞLANGIÇ STATE'İ (LocalStorage'dan Oku)

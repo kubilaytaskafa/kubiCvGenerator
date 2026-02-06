@@ -327,40 +327,25 @@ const UserInfo = () => {
               </div>
             </fieldset>
 
-            {/* 8. Professional Summary (ATS için ÖNEMLİ!) */}
+            {/* 8. Profesyonel Özet (ATS için ÖNEMLİ!) */}
             <div>
               <label className="form-label small fw-bold text-secondary mb-1">
                 <i className="bi bi-star text-warning me-1"></i>
-                Professional Summary <span className="text-warning">⭐</span>
+                Profesyonel Özet <span className="text-warning">⭐</span>
               </label>
               <textarea
                 className="form-control form-control-sm"
                 name="summary"
-                rows="3"
+                rows="4"
                 value={formData.summary || ""}
                 onChange={handleChange}
-                placeholder="3-5 cümlelik profesyonel özet. Örn: 5+ years experienced Full-Stack Developer specializing in React and Node.js..."
+                placeholder="3-5 cümlelik profesyonel özet yazın. Deneyiminizi, uzmanlık alanlarınızı ve güçlü yönlerinizi vurgulayın. Örn: 5+ yıl deneyimli Full-Stack Developer. React ve Node.js konusunda uzman. Ölçeklenebilir web uygulamaları geliştirme konusunda kanıtlanmış başarı..."
                 style={{ resize: "vertical" }}
               ></textarea>
               <small className="text-muted" style={{ fontSize: "0.7rem" }}>
-                ATS skorunuzu %10 artırır! En az 50 karakter yazın.
+                <strong>ATS skorunuzu %10 artırır!</strong> En az 50 karakter
+                yazın. İş ilanındaki anahtar kelimeleri kullanın.
               </small>
-            </div>
-
-            {/* 9. Hakkımda (İsteğe Bağlı) */}
-            <div>
-              <label className="form-label small fw-bold text-secondary mb-1">
-                Hakkımda <small className="text-muted">(İsteğe Bağlı)</small>
-              </label>
-              <textarea
-                className="form-control form-control-sm"
-                name="about"
-                rows="4"
-                value={formData.about || ""}
-                onChange={handleChange}
-                placeholder="Kendinizden kısaca bahsedin..."
-                style={{ resize: "vertical" }}
-              ></textarea>
             </div>
 
             {/* Kaydet Butonu */}
